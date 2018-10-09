@@ -22,9 +22,14 @@ def app(x=5, y=5, n=4, offset=2):
 
 if __name__ == '__main__':
     try:
-        [x, y, n] = sys.argv[1:4]
-        offset = sys.argv[4] if len(sys.argv) > 4 else 2
-        app(int(x), int(y), int(n), int(offset))
+        [x, y, n] = [int(a) for a in sys.argv[1:4]]
+        offset = int(sys.argv[4]) if len(sys.argv) > 4 else 2
+
+        if x < 1 or y < 1 or n < 0 or offset < 0 or (x * y) <= n:
+            raise BaseException
+        else:
+            app(x, y, n, offset)
 
     except BaseException:
-        print('Correct arguments: size of map by X, size of map by Y, number of obstacles, offset.')
+        print("Correct arguments: size of map by X, size of map by Y, number of obstacles, offset (optional). "
+              "Number of obstacles must be less than X*Y. All the numbers must be positive.")
